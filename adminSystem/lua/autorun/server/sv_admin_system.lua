@@ -8,6 +8,7 @@ AddCSLuaFile( "autorun/client/menu/cl_admin_system_panel_container.lua" )
 AddCSLuaFile( "autorun/client/menu/cl_admin_system_panel_board.lua" )
 AddCSLuaFile( "autorun/client/menu/cl_admin_system_panel_player.lua" )
 AddCSLuaFile( "autorun/client/menu/cl_admin_system_panel_log.lua" )
+AddCSLuaFile( "autorun/client/menu/cl_admin_system_panel_command.lua" )
 AddCSLuaFile( "autorun/client/menu/wrappedUI/cl_admin_system_dbutton.lua" )
 AddCSLuaFile( "autorun/client/menu/wrappedUI/cl_admin_system_dscrollpanel.lua" )
 

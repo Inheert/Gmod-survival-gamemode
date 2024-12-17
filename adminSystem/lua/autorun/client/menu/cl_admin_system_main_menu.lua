@@ -30,7 +30,7 @@ function PANEL:Init()
 	timer.Simple( 0.1, function()
 		if ( not IsValid( self.corePanel ) ) then return end
 
-		self.corePanel:SwitchPanel( "admin_system_panel_log" )
+		self.corePanel:SwitchPanel( "admin_system_panel_board" )
 	end )
 
 	local label = vgui.Create( "DLabel", self )

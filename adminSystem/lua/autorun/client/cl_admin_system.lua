@@ -4,6 +4,7 @@ include( "autorun/client/menu/cl_admin_system_panel_container.lua" )
 include( "autorun/client/menu/cl_admin_system_panel_board.lua" )
 include( "autorun/client/menu/cl_admin_system_panel_player.lua" )
 include( "autorun/client/menu/cl_admin_system_panel_log.lua" )
+include( "autorun/client/menu/cl_admin_system_panel_command.lua" )
 include( "autorun/client/menu/wrappedUI/cl_admin_system_dbutton.lua" )
 include( "autorun/client/menu/wrappedUI/cl_admin_system_dscrollpanel.lua" )
 
