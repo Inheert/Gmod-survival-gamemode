@@ -1,0 +1,20 @@
+ADMIN SYSTEM:
+	DONE - SIMPLE ET IMPORTANT BG : Wrapper les messages d'erreur ou d'avertissement, pr beaucoup ils ont la même base
+	- La table des commandes est envoyé quand le joueur est initialisé ou que son usergroup change.
+
+	UI :
+		DONE - Créer un template de DScrollPanel
+		DONE - Créer le menu Log
+		DONE - Classer le menu Log par catégorie
+		- Créer les menus des commandes via les catégories de commande que le joueur reçoit
+		- Créer les boutons pour les commandes
+		- Créer des Input, champ de sélection pour les commandes
+		DONE - Trouver de jolie police d'écriture :3
+
+	LOG :
+		- Mettre à jour les logs en temps réel, actuellement elles sont statics au panel, le joueur ne voit pas les logs arrivés après qu'il ai ouvert le panel
+		- Stocker un maximum X de log pour éviter d'avoir beaucoup trop de texte stocké
+		- Stocker les logs dans un fichier au lieu de les laisser dans une table ?
+		- Créer un système de log propre au client
+		- Sauvegarder les logs dans un fichier
+		- Dans le menu Log, avoir la possibilité d'accéder aux logs clients
