@@ -5,8 +5,8 @@ include( "autorun/client/menu/cl_admin_system_panel_board.lua" )
 include( "autorun/client/menu/cl_admin_system_panel_player.lua" )
 include( "autorun/client/menu/cl_admin_system_panel_log.lua" )
 include( "autorun/client/menu/cl_admin_system_panel_command.lua" )
-include( "autorun/client/menu/wrappedUI/cl_admin_system_dbutton.lua" )
-include( "autorun/client/menu/wrappedUI/cl_admin_system_dscrollpanel.lua" )
+include( "autorun/client/menu/wrapped_ui/cl_admin_system_dbutton.lua" )
+include( "autorun/client/menu/wrapped_ui/cl_admin_system_dscrollpanel.lua" )
 
 net.Receive( "AdminSystemCommunicateData", function()
 	ADMIN_SYSTEM.commandsCache = net.ReadTable()
@@ -23,6 +23,13 @@ surface.CreateFont("Sansation-25-regular", {
     font = "Sansation",      -- Nom de la police
     size = 25,           -- Taille
 	weight = 400,
+    antialias = true,    -- Anti-aliasing
+})
+
+surface.CreateFont("Sansation-25-bold", {
+    font = "Sansation",      -- Nom de la police
+    size = 25,           -- Taille
+	weight = 600,
     antialias = true,    -- Anti-aliasing
 })
 

@@ -2,6 +2,8 @@ include( "autorun/sh_admin_system.lua" )
 
 local PANEL = {}
 
+PANEL.name = "Commandes"
+
 function PANEL:Init()
 end
 

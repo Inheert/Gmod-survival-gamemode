@@ -1,7 +1,7 @@
-include( "autorun/sh_character_creator.lua" )
+include( "autorun/sh_character_manager.lua" )
 
-local materials = CHARACTER_CREATION.materials
-local baseCharacter = CHARACTER_CREATION.baseCharacter
+local materials = CHARACTER_MANAGER.materials
+local baseCharacter = CHARACTER_MANAGER.baseCharacter
 
 local PANEL = {}
 

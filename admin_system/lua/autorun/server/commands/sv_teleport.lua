@@ -79,3 +79,29 @@ ADMIN_SYSTEM.AddCommand( {
 		ADMIN_SYSTEM.playersOldPosCache[ target ] = oldPos
 	end
 } )
+
+ADMIN_SYSTEM.AddCommand( {
+	name = "Getpos",
+	command = "getposs",
+	usergroup = "admin",
+	category = "Character",
+	serverCallable = true,
+	args = {
+		{
+			type = "player"
+		}
+	},
+	callback = function( caller, cmd, args )
+		local target = args[ 1 ]
+
+		if ( not IsValid( caller ) ) then return end
+
+		if ( not IsValid( target ) ) then
+			caller:ChatPrint( tostring( caller:GetPos() ) )
+			Log( LOG_INFO, tostring( caller:GetPos() ) )
+		else
+			caller:ChatPrint( tostring( target:GetPos() ) )
+			Log( LOG_INFO, target:GetPos() )
+		end
+	end
+} )

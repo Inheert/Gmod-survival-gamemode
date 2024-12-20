@@ -9,8 +9,8 @@ AddCSLuaFile( "autorun/client/menu/cl_admin_system_panel_board.lua" )
 AddCSLuaFile( "autorun/client/menu/cl_admin_system_panel_player.lua" )
 AddCSLuaFile( "autorun/client/menu/cl_admin_system_panel_log.lua" )
 AddCSLuaFile( "autorun/client/menu/cl_admin_system_panel_command.lua" )
-AddCSLuaFile( "autorun/client/menu/wrappedUI/cl_admin_system_dbutton.lua" )
-AddCSLuaFile( "autorun/client/menu/wrappedUI/cl_admin_system_dscrollpanel.lua" )
+AddCSLuaFile( "autorun/client/menu/wrapped_ui/cl_admin_system_dbutton.lua" )
+AddCSLuaFile( "autorun/client/menu/wrapped_ui/cl_admin_system_dscrollpanel.lua" )
 
 resource.AddFile( "sound/adminSystem/Abstract2.wav" )
 resource.AddFile( "sound/adminSystem/Minimalist12.wav" )
@@ -88,6 +88,7 @@ end
 
 function ADMIN_SYSTEM.HasPermission( perm, neededPerm )
 	if ( type( perm ) ~= "string" or type( neededPerm ) ~= "string" ) then return false end
+
 	local permGroup = ADMIN_SYSTEM.GROUPS[ perm ]
 	local neededPermGroup = ADMIN_SYSTEM.PERMISSIONS[ neededPerm ]
 	

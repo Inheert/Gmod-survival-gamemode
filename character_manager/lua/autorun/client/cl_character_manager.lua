@@ -9,7 +9,7 @@ end
 net.Receive( "CharacterCreator_RequestCharacter", function()
 	local ply = LocalPlayer()
 
-	CHARACTER_CREATION.characters = net.ReadTable() 
+	CHARACTER_MANAGER.characters = net.ReadTable() 
 
 	if ( IsValid( ply.frameCharacterCreation ) ) then
 		ply.frameCharacterCreation:Close()
@@ -21,11 +21,3 @@ net.Receive( "CharacterCreator_RequestCharacter", function()
 
 	ply.frameCharacterCreation:MakePopup()
 end )
-
--- hook.Add( "PlayerButtonDown", "_FrameHook", function( ply, button )
--- 	if ( not IsFirstTimePredicted() ) then return end
-
--- 	if ( button == 93 && not IsValid( ply.frameCharacterCreation ) ) then
--- 		OpenFrame()
--- 	end
--- end )

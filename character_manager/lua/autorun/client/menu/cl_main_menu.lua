@@ -1,8 +1,9 @@
-include( "autorun/sh_character_creator.lua" )
+include( "autorun/sh_character_manager.lua" )
 
-local materials = CHARACTER_CREATION.materials
+local materials = CHARACTER_MANAGER.materials
 
 local PANEL = {}
+print('??')
 
 function PANEL:Init()
 	local width = ScrW()
@@ -18,9 +19,9 @@ function PANEL:Init()
 	self:SetDeleteOnClose( true )
 	self:SetTitle( "" )
 
-	local containerWidth = width / CHARACTER_CREATION.maxSlots
+	local containerWidth = width / CHARACTER_MANAGER.maxSlots
 
-	for i = 1, CHARACTER_CREATION.maxSlots do
+	for i = 1, CHARACTER_MANAGER.maxSlots do
 		local container = vgui.Create( "DPanel", self )
 		container:SetSize( containerWidth, height )
 		container:SetPos( ( i - 1 ) * containerWidth, 0 )
@@ -29,7 +30,7 @@ function PANEL:Init()
 			surface.SetDrawColor( 0, 0, 0, 0 )
 		end
 
-		local character = CHARACTER_CREATION.characters[ i ]
+		local character = CHARACTER_MANAGER.characters[ i ]
 
 		if ( character ) then
 			local modelPanel = vgui.Create( "DModelPanel", container )
@@ -41,7 +42,7 @@ function PANEL:Init()
 			local panelEnt = modelPanel:GetEntity()
 			panelEnt:SetSkin( character.skin )
 
-			for id, bg in pairs( CHARACTER_CREATION.baseCharacter.bodygroups ) do
+			for id, bg in pairs( CHARACTER_MANAGER.baseCharacter.bodygroups ) do
 				panelEnt:SetBodygroup( id, character[ "bg" .. id ] )
 			end
 			
@@ -58,13 +59,14 @@ function PANEL:Init()
 				end
 				draw.SimpleText( character.lastname .. " " .. character.firstname, "DermaDefault", containerWidth / 2, height * 0.8, Color(255, 255, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER )
 			end
-
+			print('CREATED')
 			selectButton.DoClick = function( _self )
-				self:Close()
-	
+				
 				net.Start( "CharacterCreator_SelectCharacter" )
+				print('selected')
 				net.WriteInt( character.characterId, 32 )
 				net.SendToServer()
+				self:Close()
 			end
 		else
 			local selectButton = vgui.Create( "DButton", container )

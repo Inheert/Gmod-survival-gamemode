@@ -3,11 +3,11 @@ require( "mysqloo" )
 MySQL = MySQL or {}
 
 local sqlConn = {
-	host = "localhost",
+	host = "127.0.0.1",
 	port = "3306",
 	ddb = "nosalis",
 	username = "nosalisServer",
-	password = "123456"
+	password = "1234"
 }
 
 local db = db or nil
@@ -26,7 +26,7 @@ hook.Add( "Initialize", "sqlInitialize", function()
 	end
 	
 	function db:onConnectionFailed( db, error )
-		Log( LOG_SEVERE, "Tentative de connection échouée à la base de donnée MySQL:" .. tostring(error) )
+		Log( LOG_SEVERE, "Tentative de connection échouée à la base de donnée MySQL:" .. tostring( db ) )
 	end
 	
 	db:connect()
@@ -35,6 +35,21 @@ hook.Add( "Initialize", "sqlInitialize", function()
 	MySQL.Query( "CREATE TABLE IF NOT EXISTS characters_bodygroups(pk INT PRIMARY KEY AUTO_INCREMENT, characterId INT, skin INT, bg0 INT, bg1 INT, bg2 INT, bg3 INT, bg4 INT, bg5 INT, bg6 INT, bg7 INT, bg8 INT, bg9 INT, bg10 INT, bg11 INT, bg12 INT, bg13 INT, bg14 INT)" )
 	MySQL.Query( "CREATE TABLE IF NOT EXISTS admin(pk INT PRIMARY KEY AUTO_INCREMENT, steamid64 VARCHAR(20) NOT NULL UNIQUE, usergroup VARCHAR(25))" )
 end )
+
+-- db = mysqloo.connect( sqlConn.host, sqlConn.username, sqlConn.password, sqlConn.ddb, sqlConn.port )
+	
+-- function db:onConnected()
+-- 	Log( LOG_SUCCESS, "Connection à la base de donnée MySQL réussi!" )
+-- end
+
+-- function db:onConnectionFailed( db, error )
+-- 	Log( LOG_SEVERE, "Tentative de connection échouée à la base de donnée MySQL:" .. tostring( db ) )
+-- end
+
+-- db:connect()
+-- MySQL.Query( "CREATE TABLE IF NOT EXISTS characters(pk INT PRIMARY KEY AUTO_INCREMENT, steamid64 BIGINT NOT NULL, characterId INT, firstname VARCHAR(20), lastname VARCHAR(30), age INT, size INT, model VARCHAR(100))" )
+-- MySQL.Query( "CREATE TABLE IF NOT EXISTS characters_bodygroups(pk INT PRIMARY KEY AUTO_INCREMENT, characterId INT, skin INT, bg0 INT, bg1 INT, bg2 INT, bg3 INT, bg4 INT, bg5 INT, bg6 INT, bg7 INT, bg8 INT, bg9 INT, bg10 INT, bg11 INT, bg12 INT, bg13 INT, bg14 INT)" )
+-- MySQL.Query( "CREATE TABLE IF NOT EXISTS admin(pk INT PRIMARY KEY AUTO_INCREMENT, steamid64 VARCHAR(20) NOT NULL UNIQUE, usergroup VARCHAR(25))" )
 
 concommand.Add( "connect_ddb", function( ply, cmd, arg, argStr )
 	if ( db ) then

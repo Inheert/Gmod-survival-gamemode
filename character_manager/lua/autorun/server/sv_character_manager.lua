@@ -3,8 +3,8 @@ AddCSLuaFile( "autorun/client/menu/cl_character_creation.lua" )
 
 resource.AddFile( "materials/characterCreation/background.jpg" )
 
-CHARACTER_CREATION.charactersId = CHARACTER_CREATION.charactersId or {}
-CHARACTER_CREATION.characterCache = CHARACTER_CREATION.characterCache or {}
+CHARACTER_MANAGER.charactersId = CHARACTER_MANAGER.charactersId or {}
+CHARACTER_MANAGER.characterCache = CHARACTER_MANAGER.characterCache or {}
 
 --[[
 	Hook triggered at the start of the gamemode, it load every characterID so we can use them later without making new request.
@@ -15,10 +15,10 @@ hook.Add( "Initialize", "characterSystemInitialize", function()
 		if ( err ) then return end
 
 		for k, v in ipairs( data ) do
-			table.insert( CHARACTER_CREATION.charactersId, v.characterId )
+			table.insert( CHARACTER_MANAGER.charactersId, v.characterId )
 		end
 
-		table.sort( CHARACTER_CREATION.charactersId )
+		table.sort( CHARACTER_MANAGER.charactersId )
 	end )
 end )
 
@@ -26,10 +26,12 @@ end )
 -- 	if ( err ) then return end
 
 -- 	for k, v in ipairs( data ) do
--- 		table.insert( CHARACTER_CREATION.charactersId, v.characterId )
+-- 		table.insert( CHARACTER_MANAGER.charactersId, v.characterId )
 -- 	end
 
--- 	table.sort( CHARACTER_CREATION.charactersId )
+-- 	table.sort( CHARACTER_MANAGER.charactersId )
+
+-- 	PrintTable( CHARACTER_MANAGER.charactersId )
 -- end )
 
 --[[
@@ -40,7 +42,7 @@ hook.Add( "PlayerInitialSpawn", "characterSystemPlayerInitialSpawn", function( p
 		if ( err ) then return end
 
 		if ( data ~= nil and data[ 1 ] ~= nil and data[ 1 ].steamid64 ) then
-			CHARACTER_CREATION.characterCache[ data[ 1 ].steamid64 ] = data
+			CHARACTER_MANAGER.characterCache[ data[ 1 ].steamid64 ] = data
 		end
 	end )
 end )
@@ -58,15 +60,16 @@ end )
 
 hook.Add( "PlayerDisconnected", "characterSystemPlayerDisconnected", function( ply )
 	print('data removed!')
-	CHARACTER_CREATION.characterCache[ ply:SteamID64() ] = nil
+	CHARACTER_MANAGER.characterCache[ ply:SteamID64() ] = nil
 end )
 
 -- for k, ply in ipairs(player.GetAll()) do
 -- 	MySQL.Query( "SELECT c.*, cb.* from characters c INNER JOIN characters_bodygroups cb ON c.characterId = cb.characterId WHERE steamid64 = ?", { ply:SteamID64() }, function( data, err )
+-- 		print("' eoin")
 -- 		if ( err ) then return end
-
 -- 		if ( data ~= nil and data[ 1 ] ~= nil and data[ 1 ].steamid64 ) then
--- 			CHARACTER_CREATION.characterCache[ data[ 1 ].steamid64 ] = data
+-- 			CHARACTER_MANAGER.characterCache[ data[ 1 ].steamid64 ] = data
+-- 			PrintTable( data )
 -- 		end
 -- 	end )
 -- end
@@ -77,18 +80,17 @@ end )
 local function GetNewCharacterIdentifier()
 	local newId = 0
 
-	for i = 1, #CHARACTER_CREATION.charactersId - 1 do
-		if ( CHARACTER_CREATION.charactersId[ i ] + 1 < CHARACTER_CREATION.charactersId[ i + 1 ] ) then
-			return CHARACTER_CREATION.charactersId[ i ] + 1
-		elseif ( CHARACTER_CREATION.charactersId[ i ] > i ) then
+	for i = 1, #CHARACTER_MANAGER.charactersId - 1 do
+		if ( CHARACTER_MANAGER.charactersId[ i ] + 1 < CHARACTER_MANAGER.charactersId[ i + 1 ] ) then
+			return CHARACTER_MANAGER.charactersId[ i ] + 1
+		elseif ( CHARACTER_MANAGER.charactersId[ i ] > i ) then
 			return i - 1
 		end
-		newId = CHARACTER_CREATION.charactersId[ i + 1 ]
+		newId = CHARACTER_MANAGER.charactersId[ i + 1 ]
 	end
 
 	return newId + 1
 end
-
 
 util.AddNetworkString( "CharacterCreator_RequestCharacter" )
 net.Receive( "CharacterCreator_RequestCharacter", function( len, ply )
@@ -103,7 +105,7 @@ util.AddNetworkString( "CharacterCreator_CreateCharacter" )
 net.Receive( "CharacterCreator_CreateCharacter", function( len, ply )
 	local steamid64 = ply:SteamID64()
 
-	if ( type( CHARACTER_CREATION.characterCache[ steamid64 ] ) == "table" and #CHARACTER_CREATION.characterCache[ steamid64 ] == CHARACTER_CREATION.maxSlots ) then return end
+	if ( type( CHARACTER_MANAGER.characterCache[ steamid64 ] ) == "table" and #CHARACTER_MANAGER.characterCache[ steamid64 ] == CHARACTER_MANAGER.maxSlots ) then return end
 
 	local character = net.ReadTable()
 	local characterId = GetNewCharacterIdentifier()
@@ -118,23 +120,23 @@ net.Receive( "CharacterCreator_CreateCharacter", function( len, ply )
 		character.size,
 		character.model })
 
-	local baseCharacter = CHARACTER_CREATION.baseCharacter
+	local baseCharacter = CHARACTER_MANAGER.baseCharacter
 
 	character["bg0"] = baseCharacter.bodygroups[0]
-	character["bg1"] =baseCharacter.bodygroups[1]
-	character["bg2"] =baseCharacter.bodygroups[2]
-	character["bg3"] =baseCharacter.bodygroups[3]
-	character["bg4"] =baseCharacter.bodygroups[4]
-	character["bg5"] =baseCharacter.bodygroups[5]
-	character["bg6"] =baseCharacter.bodygroups[6]
-	character["bg7"] =baseCharacter.bodygroups[7]
-	character["bg8"] =baseCharacter.bodygroups[8]
-	character["bg9"] =baseCharacter.bodygroups[9]
-	character["bg10"] =baseCharacter.bodygroups[10]
-	character["bg11"] =baseCharacter.bodygroups[11]
-	character["bg12"] =baseCharacter.bodygroups[12]
-	character["bg13"] =baseCharacter.bodygroups[13]
-	character["bg14"] =baseCharacter.bodygroups[14]
+	character["bg1"] = baseCharacter.bodygroups[1]
+	character["bg2"] = baseCharacter.bodygroups[2]
+	character["bg3"] = baseCharacter.bodygroups[3]
+	character["bg4"] = baseCharacter.bodygroups[4]
+	character["bg5"] = baseCharacter.bodygroups[5]
+	character["bg6"] = baseCharacter.bodygroups[6]
+	character["bg7"] = baseCharacter.bodygroups[7]
+	character["bg8"] = baseCharacter.bodygroups[8]
+	character["bg9"] = baseCharacter.bodygroups[9]
+	character["bg10"] = baseCharacter.bodygroups[10]
+	character["bg11"] = baseCharacter.bodygroups[11]
+	character["bg12"] = baseCharacter.bodygroups[12]
+	character["bg13"] = baseCharacter.bodygroups[13]
+	character["bg14"] = baseCharacter.bodygroups[14]
 
 	MySQL.Query( "INSERT INTO characters_bodygroups(`characterId`, `skin`, `bg0`, `bg1`, `bg2`, `bg3`, `bg4`, `bg5`, `bg6`, `bg7`, `bg8`, `bg9`, `bg10`, `bg11`, `bg12`, `bg13`, `bg14`) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", {
 		characterId,
@@ -156,13 +158,13 @@ net.Receive( "CharacterCreator_CreateCharacter", function( len, ply )
 		baseCharacter.bodygroups[14],
 	} )
 
-	table.insert( CHARACTER_CREATION.charactersId, characterId )
-	table.sort( CHARACTER_CREATION.charactersId )
+	table.insert( CHARACTER_MANAGER.charactersId, characterId )
+	table.sort( CHARACTER_MANAGER.charactersId )
 
-	if ( type( CHARACTER_CREATION.characterCache[ steamid64 ] ) == "table" ) then		
-		table.insert( CHARACTER_CREATION.characterCache[ steamid64 ], character )
+	if ( type( CHARACTER_MANAGER.characterCache[ steamid64 ] ) == "table" ) then		
+		table.insert( CHARACTER_MANAGER.characterCache[ steamid64 ], character )
 	else
-		CHARACTER_CREATION.characterCache[ steamid64 ] = { character }
+		CHARACTER_MANAGER.characterCache[ steamid64 ] = { character }
 	end
 
 	Log(LOG_INFO, tostring( ply ) .. " character created!")
@@ -179,6 +181,7 @@ net.Receive( "CharacterCreator_SelectCharacter", function( len, ply )
 
 	ply:SetCharacterID( characterid )
 
+	NWLog( LEVEL_INFO, "admin", "Character", tostring( ply ) .. " a sélectionné un personnage (id: " .. tostring(characterid) .. ") " )
 	Log(LOG_INFO, tostring( ply ) .. "character selected!")
 
 	ply:CharacterSpawn()
@@ -193,19 +196,19 @@ function metaPly:UpdateCharacters()
 	local steamid = self:SteamID64()
 	local characters = {}
 
-	if ( type( CHARACTER_CREATION.characterCache[ steamid ] ) ~= "table" ) then 
+	if ( type( CHARACTER_MANAGER.characterCache[ steamid ] ) ~= "table" ) then 
 		MySQL.Query( "SELECT c.*, cb.* from characters c INNER JOIN characters_bodygroups cb ON c.characterId = cb.characterId WHERE steamid64 = ?", { self:SteamID64() }, function( data, err )
 			if ( err ) then return end
 	
-			CHARACTER_CREATION.characterCache[ steamid ] = data
+			CHARACTER_MANAGER.characterCache[ steamid ] = data
 
 			net.Start( "CharacterCreator_RequestCharacter" )
-			net.WriteTable( CHARACTER_CREATION.characterCache[ steamid ] )
+			net.WriteTable( CHARACTER_MANAGER.characterCache[ steamid ] )
 			net.Send( self )
 		end )
 	else
 		net.Start( "CharacterCreator_RequestCharacter" )
-		net.WriteTable( CHARACTER_CREATION.characterCache[ steamid ] )
+		net.WriteTable( CHARACTER_MANAGER.characterCache[ steamid ] )
 		net.Send( self )
 	end
 
@@ -214,7 +217,7 @@ function metaPly:UpdateCharacters()
 end
 
 function metaPly:CharacterSpawn()
-	local characters = CHARACTER_CREATION.characterCache[ self:SteamID64() ]
+	local characters = CHARACTER_MANAGER.characterCache[ self:SteamID64() ]
 	
 	if ( type( characters ) ~= "table" ) then return end
 	
@@ -231,7 +234,7 @@ function metaPly:CharacterSpawn()
 	self:SetModel( selectedCharacter.model )
 	self:SetSkin( selectedCharacter.skin )
 
-	for id, bg in pairs( CHARACTER_CREATION.baseCharacter.bodygroups ) do
+	for id, bg in pairs( CHARACTER_MANAGER.baseCharacter.bodygroups ) do
 		self:SetBodygroup( id, selectedCharacter[ "bg" .. id ] )
 	end
 

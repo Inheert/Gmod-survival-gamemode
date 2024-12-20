@@ -17,7 +17,7 @@ function PANEL:Init()
 	self:SetPos( 0, 0 )
 	self:SetVisible( true )
 	self:SetDraggable( false )
-	self:ShowCloseButton( true )
+	self:ShowCloseButton( false )
 	self:SetMouseInputEnabled( true )
 	self:SetKeyboardInputEnabled( true )
 	self:SetDeleteOnClose( true )
@@ -30,7 +30,7 @@ function PANEL:Init()
 	timer.Simple( 0.1, function()
 		if ( not IsValid( self.corePanel ) ) then return end
 
-		self.corePanel:SwitchPanel( "admin_system_panel_board" )
+		self.corePanel:SwitchPanel( "admin_system_panel_player" )
 	end )
 
 	local label = vgui.Create( "DLabel", self )
@@ -52,8 +52,8 @@ end
 
 function PANEL:CorePanel( width, height )
 	self.corePanel = vgui.Create( "admin_system_panel_container", self )
-	self.corePanel:SetPos( self:GetWide() * 0.2, 0 )
 	self.corePanel:SetSize( self:GetWide() * 0.8, self:GetTall() )
+	self.corePanel:SetPos( self.menuContainer:GetWide(), 0 )
 end
 
 function PANEL:MenuBar( width, height )
@@ -64,6 +64,7 @@ function PANEL:MenuBar( width, height )
 	menuContainer:SetSize( width, height )
 	menuContainer:SetPos( 0, 0 )
 
+	self.menuContainer = menuContainer
 
 	function menuContainer:Paint( w, h )
 		surface.SetDrawColor( 49, 50, 54 )
@@ -97,9 +98,21 @@ function PANEL:MenuBar( width, height )
 	button:DockMargin( 0, 0, 0, 100 )
 
 	category = self:CreateMenuCategory( width, menuCategoryHeight, scrollPanel, "Commandes" )
-	self:CreateMenuButton( width, menuButtonHeight, "Charactères", scrollPanel )
-	self:CreateMenuButton( width, menuButtonHeight, "Sanctions", scrollPanel )
-	self:CreateMenuButton( width, menuButtonHeight, "Autres", scrollPanel )
+
+	local category = {}
+
+	for _, v in ipairs( ADMIN_SYSTEM.commandsCache ) do
+		category[ v.category ] = true
+	end
+
+	for k, v in pairs( category ) do
+		local button = self:CreateMenuButton( width, menuButtonHeight, k, scrollPanel, "admin_system_panel_command" )
+		
+		button.WrappedDoClick = function()
+			self.corePanel:SwitchPanel( "admin_system_panel_command" )
+			self.corePanel:SetName( k )
+		end
+	end
 end
 
 function PANEL:CreateLabel( text, parent )

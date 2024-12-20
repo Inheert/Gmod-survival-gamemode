@@ -18,3 +18,26 @@ ADMIN SYSTEM:
 		- Créer un système de log propre au client
 		- Sauvegarder les logs dans un fichier
 		- Dans le menu Log, avoir la possibilité d'accéder aux logs clients
+
+
+TERRITOIRES & FACTIONS :
+	TERRITOIRES: 
+		- Diviser la map en brush pour définir les zones
+		- Ajouter la possibilité de supprimer certains brushs
+		- Comment stocker les zones ? MySQL ? Json ?
+		- Les zones possèdent différents états:
+			- Zone libre: inoccupée, libre d'accès
+			- Zone capturée: La zone est possédait par une faction
+			- Zone occupée: La zone est en cours de capture par une faction
+			- Zone en conflit: La zone est disputée par 2 factions
+		- Chaque zone possède des attributs qui définissent sa richesse en matière première, sa capacité de production lié à l'industrie, l'armement, etc... 
+
+	FACTIONS:
+		- Le joueur peut créer une faction. Par quel moyen ? Un menu ? Un PNJ ? Directement quand il essaie de claim une zone ?
+		- La faction doit construire un Centre de Commande afin de pouvoir commencer à étendre son territoire.
+		- La faction peut capturer les zones adjacentes aux zones déjà capturés.
+		- La faction dépense des ressources pour capturer les zones adjacentes, ces dépenses augmentent avec le nombre de zone capturée.
+		- La durée de capture d'une zone peut être accélérée en remplissant des tâches de capture.
+		- Il est possible de construire des sites logistiques permettant de produire de nouvelle marchandise, de fabriquer de l'équipement, etc..
+		- Il est possible d'exploiter les matières premières de la zone
+

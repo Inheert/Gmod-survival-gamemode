@@ -1,10 +1,10 @@
-CHARACTER_CREATION = CHARACTER_CREATION or {}
+CHARACTER_MANAGER = CHARACTER_MANAGER or {}
 
-CHARACTER_CREATION.maxSlots = 3
+CHARACTER_MANAGER.maxSlots = 3
 
-CHARACTER_CREATION.charactersData = nil
+CHARACTER_MANAGER.charactersData = nil
 
-CHARACTER_CREATION.baseCharacter = {
+CHARACTER_MANAGER.baseCharacter = {
 	model = "models/somali/somali_soldier.mdl",
 	skin = { 0, 12 },
 	bodygroups = {
@@ -28,7 +28,7 @@ CHARACTER_CREATION.baseCharacter = {
 }
 
 if ( CLIENT ) then
-	CHARACTER_CREATION.materials = {
+	CHARACTER_MANAGER.materials = {
 		["background"] = Material( "characterCreation/background.jpg" )
 	}
 end
