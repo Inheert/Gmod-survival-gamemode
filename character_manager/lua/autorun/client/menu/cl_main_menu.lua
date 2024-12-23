@@ -3,7 +3,6 @@ include( "autorun/sh_character_manager.lua" )
 local materials = CHARACTER_MANAGER.materials
 
 local PANEL = {}
-print('??')
 
 function PANEL:Init()
 	local width = ScrW()

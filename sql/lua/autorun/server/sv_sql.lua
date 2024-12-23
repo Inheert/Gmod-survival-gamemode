@@ -34,6 +34,7 @@ hook.Add( "Initialize", "sqlInitialize", function()
 	MySQL.Query( "CREATE TABLE IF NOT EXISTS characters(pk INT PRIMARY KEY AUTO_INCREMENT, steamid64 BIGINT NOT NULL, characterId INT, firstname VARCHAR(20), lastname VARCHAR(30), age INT, size INT, model VARCHAR(100))" )
 	MySQL.Query( "CREATE TABLE IF NOT EXISTS characters_bodygroups(pk INT PRIMARY KEY AUTO_INCREMENT, characterId INT, skin INT, bg0 INT, bg1 INT, bg2 INT, bg3 INT, bg4 INT, bg5 INT, bg6 INT, bg7 INT, bg8 INT, bg9 INT, bg10 INT, bg11 INT, bg12 INT, bg13 INT, bg14 INT)" )
 	MySQL.Query( "CREATE TABLE IF NOT EXISTS admin(pk INT PRIMARY KEY AUTO_INCREMENT, steamid64 VARCHAR(20) NOT NULL UNIQUE, usergroup VARCHAR(25))" )
+	MySQL.Query( "CREATE TABLE IF NOT EXISTS conquest_groups(pk INT PRIMARY KEY AUTO_INCREMENT, groupe_id INT NOT NULL, groupe_name VARCHAR(25) NOT NULL, leader_id INT NOT NULL)" )
 end )
 
 -- db = mysqloo.connect( sqlConn.host, sqlConn.username, sqlConn.password, sqlConn.ddb, sqlConn.port )

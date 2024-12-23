@@ -1,3 +1,6 @@
+PROTECTION:
+	- Sécuriser les tables globales servant de cache pour les différentes addons, les rendre read-only, crée des setters sécurisés pour celles-ci
+
 ADMIN SYSTEM:
 	DONE - SIMPLE ET IMPORTANT BG : Wrapper les messages d'erreur ou d'avertissement, pr beaucoup ils ont la même base
 	- La table des commandes est envoyé quand le joueur est initialisé ou que son usergroup change.
