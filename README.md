@@ -1,47 +1,61 @@
-# Garry's Mod Survival Gamemode
+# Garry's Mod PvP Server
 
-This repository contains the source code for a Garry's Mod gamemode based on survival gameplay. The gamemode includes various systems such as character creation, admin commands, logging, and more.
+Ce dépôt contient le code source pour un serveur Garry's Mod axé sur le gameplay PvP. Le serveur inclut divers systèmes tels que la création de personnages, les commandes administratives, la journalisation, et plus encore.
 
-**Note: This gamemode is a work in progress.**
+**Note : Ce serveur est en cours de développement.**
 
-### [`adminSystem`](adminSystem )
+## Objectifs du Projet
 
-- **Purpose**: Contains the admin system for managing commands, logging, and user permissions.
-- **Key Files**:
-  - [`sh_admin_system.lua`](adminSystem/lua/autorun/sh_admin_system.lua ): Shared admin system definitions and utilities.
+- Créer une expérience de jeu PvP immersive et équilibrée.
+- Fournir des outils d'administration robustes pour gérer le serveur.
+- Implémenter des systèmes de journalisation pour suivre les événements et les actions des joueurs.
+- Offrir une personnalisation approfondie des personnages.
 
-### [`characterCreator`](characterCreator )
+## Structure du Projet
 
-- **Purpose**: Manages character creation and customization.
-- **Key Files**:
-  - [`sh_character_creator.lua`](characterCreator/lua/autorun/sh_character_creator.lua ): Shared character creation definitions and utilities.
+### [`admin_system`](admin_system)
 
-### [`keyBinding`](keyBinding )
+- **Objectif** : Contient le système d'administration pour gérer les commandes, la journalisation et les permissions des utilisateurs.
+- **Fichiers Clés** :
+  - [`sh_admin_system.lua`](admin_system/lua/autorun/sh_admin_system.lua) : Définitions et utilitaires partagés du système d'administration.
 
-- **Purpose**: Manages key bindings for various actions.
-- **Key Files**: Lua scripts for key binding configurations.
+### [`character_manager`](character_manager)
 
-### [`log`](log )
+- **Objectif** : Gère la création et la personnalisation des personnages.
+- **Fichiers Clés** :
+  - [`sh_character_manager.lua`](character_manager/lua/autorun/sh_character_manager.lua) : Définitions et utilitaires partagés pour la gestion des personnages.
 
-- **Purpose**: Handles logging of various events and actions.
-- **Key Files**: Shared logging definitions and utilities.
+### [`key_binding`](key_binding)
 
-### [`networkVar`](networkVar )
+- **Objectif** : Gère les raccourcis clavier pour diverses actions.
+- **Fichiers Clés** : Scripts Lua pour les configurations des raccourcis clavier.
 
-- **Purpose**: Manages networked variables for player data.
-- **Key Files**: Shared network variable definitions.
+### [`log`](log)
 
-### [`pm_apo`](pm_apo )
+- **Objectif** : Gère la journalisation des divers événements et actions.
+- **Fichiers Clés** : Définitions et utilitaires partagés pour la journalisation.
 
-- **Purpose**: Contains player models and related assets.
-- **Key Files**:
-  - [`addon.txt`](pm_apo/addon.txt ): Addon metadata.
+### [`network_var`](network_var)
 
-### [`sql`](sql )
+- **Objectif** : Gère les variables réseau pour les données des joueurs.
+- **Fichiers Clés** : Définitions partagées des variables réseau.
 
-- **Purpose**: Manages SQL database interactions.
-- **Key Files**: Server-side SQL logic.
+### [`conquest_system`](conquest_system)
 
-### [`TODO.txt`](TODO.txt )
+- **Objectif** : Implémente un système de conquête pour le contrôle des territoires.
+- **Fichiers Clés** :
+  - [`sh_conquest_system.lua`](conquest_system/lua/autorun/sh_conquest_system.lua) : Définitions et utilitaires partagés pour le système de conquête.
 
-- **Purpose**: Contains a list of tasks and features to be implemented.
+### [`sql`](sql)
+
+- **Objectif** : Gère les interactions avec la base de données SQL.
+- **Fichiers Clés** : Logique SQL côté serveur.
+
+### [`general_utils`](general_utils)
+
+- **Objectif** : Fournit des utilitaires généraux utilisés dans tout le projet.
+- **Fichiers Clés** : Scripts Lua utilitaires partagés.
+
+## TODO
+
+Consultez le fichier [TODO.txt](TODO.txt) pour une liste des tâches et des fonctionnalités à implémenter.
