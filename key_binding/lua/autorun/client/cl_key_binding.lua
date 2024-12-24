@@ -18,3 +18,7 @@ hook.Add( "PlayerButtonDown", "_FrameHook", function( ply, button )
 		ply.conquestGroupFrame:MakePopup()
 	end
 end )
+
+net.Start( "ConquestGroupeCreation" )
+net.WriteString( "grgrrg" )
+net.SendToServer()

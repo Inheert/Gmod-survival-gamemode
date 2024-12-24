@@ -12,6 +12,7 @@ function PLAYER:SetupDataTables()
 	BaseClass.SetupDataTables( self )
 
 	self.Player:NetworkVar( "Int", "CharacterID" )
+	self.Player:NetworkVar( "Int", "CharacterGroup" )
 	self.Player:NetworkVar( "Int", "UserGroup" )
 end
 

@@ -47,12 +47,19 @@ function PANEL:Init()
 
 	button.WrappedDoClick = function( _self )
         local text = textEntry:GetValue()
+
         if ( #text > CONQUEST.configs.groupeNameMaxLen or string.match( text, CONQUEST.configs.groupeNameRegex ) == nil ) then 
             self.borderColor = Color( 255, 0, 0, 250 )
-        else
-            self.borderColor = Color( 0, 255, 0, 250 )
+            return
         end
 
+        self.borderColor = Color( 0, 255, 0, 250 )
+        timer.Simple( 0.2, function()
+            net.Start( "ConquestGroupeCreation" )
+            net.WriteString( text )
+            net.SendToServer()
+            self:Remove()
+        end )
 	end
 end
 

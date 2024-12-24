@@ -44,3 +44,8 @@ TERRITOIRES & FACTIONS :
 		- Il est possible de construire des sites logistiques permettant de produire de nouvelle marchandise, de fabriquer de l'équipement, etc..
 		- Il est possible d'exploiter les matières premières de la zone
 
+CONQUEST:
+	- Finir la création de groupe
+	- Vérifier l'intégrité des données en cache
+	- Ajouter la possibilité d'avoir des membres dans le groupe
+	- Crée un début de logique pour claim une zone
